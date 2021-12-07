@@ -780,9 +780,6 @@ static void onTransferReceived(CanardInstance* ins,
      * Taking this branch only if we don't have a node ID, ignoring otherwise.
      */
     if (canardGetLocalNodeID(ins) == CANARD_BROADCAST_NODE_ID) {
-        #ifdef DEBUG_CAN_SYSTEM
-          hal.serial(2)->printf("Dynamic node ID allocation protocol");
-        #endif
         if (transfer->transfer_type == CanardTransferTypeBroadcast &&
             transfer->data_type_id == UAVCAN_PROTOCOL_DYNAMIC_NODE_ID_ALLOCATION_ID) {
             handle_allocation_response(ins, transfer);

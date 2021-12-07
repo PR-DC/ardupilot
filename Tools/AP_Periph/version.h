@@ -7,5 +7,5 @@
 
 #define FW_MAJOR 1
 #define FW_MINOR 2
-#define FW_PATCH 90
+#define FW_PATCH 90 // PR-DC from 90
 #define FW_TYPE FIRMWARE_VERSION_TYPE_OFFICIAL
