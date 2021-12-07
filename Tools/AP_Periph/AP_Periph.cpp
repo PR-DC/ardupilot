@@ -74,7 +74,6 @@ void AP_Periph_FW::init()
     stm32_watchdog_pat();
 
     hal.serial(0)->begin(AP_SERIALMANAGER_CONSOLE_BAUD, 32, 32);
-    hal.serial(3)->begin(115200, 128, 256);
 
     load_parameters();
 
@@ -85,6 +84,10 @@ void AP_Periph_FW::init()
     serial_manager.init();
 
     stm32_watchdog_pat();
+
+#ifdef USERHOOK_INIT
+    USERHOOK_INIT
+#endif
 
 #ifdef HAL_BOARD_AP_PERIPH_ZUBAXGNSS
     // setup remapping register for ZubaxGNSS
@@ -315,7 +318,13 @@ void AP_Periph_FW::update()
 #endif
 
     can_update();
+    
+#ifdef USERHOOK_UPDATE
+    USERHOOK_UPDATE
+#endif
+    
     hal.scheduler->delay(1);
+    
 #if defined(HAL_PERIPH_NEOPIXEL_COUNT) && HAL_PERIPH_NEOPIXEL_COUNT == 8
     update_rainbow();
 #endif

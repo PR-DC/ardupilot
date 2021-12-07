@@ -147,7 +147,12 @@ const AP_Param::Info AP_Periph_FW::var_info[] = {
 #ifdef HAL_PERIPH_ENABLE_MSP
     GSCALAR(msp_port, "MSP_PORT", AP_PERIPH_MSP_PORT_DEFAULT),
 #endif
-    
+
+// User parameters
+#ifdef USERHOOK_PARAMS
+#include USERHOOK_PARAMS
+#endif
+
     AP_VAREND
 };
 

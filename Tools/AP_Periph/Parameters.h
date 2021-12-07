@@ -36,6 +36,10 @@ public:
         k_param_rangefinder_port,
         k_param_gps_port,
         k_param_msp_port,
+// User parameters
+#ifdef USERHOOK_PARAMS_ENUM
+#include USERHOOK_PARAMS_ENUM
+#endif
     };
 
     AP_Int16 format_version;
@@ -80,7 +84,12 @@ public:
 #ifdef HAL_PERIPH_ENABLE_MSP
     AP_Int8 msp_port;
 #endif
-    
+
+// User parameters
+#ifdef USERHOOK_PARAMS_VAR
+#include USERHOOK_PARAMS_VAR
+#endif
+
     AP_Int8 debug;
 
     AP_Int32 serial_number;

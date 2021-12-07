@@ -13,11 +13,13 @@
 #include <AP_MSP/msp.h>
 #include "../AP_Bootloader/app_comms.h"
 #include "hwing_esc.h"
+#include "../modules/libcanard/canard.h"
 
 #if defined(HAL_PERIPH_NEOPIXEL_COUNT) || defined(HAL_PERIPH_ENABLE_NCP5623_LED) || defined(HAL_PERIPH_ENABLE_NCP5623_BGR_LED) || defined(HAL_PERIPH_ENABLE_TOSHIBA_LED)
 #define AP_PERIPH_HAVE_LED
 #endif
 
+#include "APM_Config.h"
 #include "Parameters.h"
 
 #if CONFIG_HAL_BOARD == HAL_BOARD_SITL
@@ -47,6 +49,22 @@ public:
 
     void load_parameters();
     void prepare_reboot();
+
+    // UserCode.cpp
+    void userhook_init();
+    bool userhook_shouldAcceptTransfer(const CanardInstance* ins,
+                                       uint64_t* out_data_type_signature,
+                                       uint16_t data_type_id,
+                                       CanardTransferType transfer_type,
+                                       uint8_t source_node_id);
+    void userhook_onTransferReceived(CanardInstance* ins,
+                                     CanardRxTransfer* transfer);
+    void userhook_Update();
+    
+    // User variables
+#ifdef USERHOOK_VARIABLES
+#include USERHOOK_VARIABLES
+#endif
 
 #ifdef HAL_PERIPH_LISTEN_FOR_SERIAL_UART_REBOOT_CMD_PORT
     void check_for_serial_reboot_cmd(const int8_t serial_index);

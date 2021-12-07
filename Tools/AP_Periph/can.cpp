@@ -774,12 +774,15 @@ static void onTransferReceived(CanardInstance* ins,
 #ifdef HAL_GPIO_PIN_LED_CAN1
     palToggleLine(HAL_GPIO_PIN_LED_CAN1);
 #endif
-
+    
     /*
      * Dynamic node ID allocation protocol.
      * Taking this branch only if we don't have a node ID, ignoring otherwise.
      */
     if (canardGetLocalNodeID(ins) == CANARD_BROADCAST_NODE_ID) {
+        #ifdef DEBUG_CAN_SYSTEM
+          hal.serial(2)->printf("Dynamic node ID allocation protocol");
+        #endif
         if (transfer->transfer_type == CanardTransferTypeBroadcast &&
             transfer->data_type_id == UAVCAN_PROTOCOL_DYNAMIC_NODE_ID_ALLOCATION_ID) {
             handle_allocation_response(ins, transfer);
@@ -849,6 +852,10 @@ static void onTransferReceived(CanardInstance* ins,
         break;
 #endif
     }
+    
+#ifdef USERHOOK_TRANSFERRECEIVED
+    periph.userhook_onTransferReceived(ins, transfer);
+#endif
 }
 
 
@@ -866,7 +873,7 @@ static bool shouldAcceptTransfer(const CanardInstance* ins,
                                  uint8_t source_node_id)
 {
     (void)source_node_id;
-
+    
     if (canardGetLocalNodeID(ins) == CANARD_BROADCAST_NODE_ID)
     {
         /*
@@ -930,7 +937,15 @@ static bool shouldAcceptTransfer(const CanardInstance* ins,
         break;
     }
 
+#ifdef USERHOOK_ACCEPTTRANSFER
+    return periph.userhook_shouldAcceptTransfer(ins, 
+                                                out_data_type_signature,
+                                                data_type_id,
+                                                transfer_type,
+                                                source_node_id);
+#else
     return false;
+#endif
 }
 
 static void processTx(void)
