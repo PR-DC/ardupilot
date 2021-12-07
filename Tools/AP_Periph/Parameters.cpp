@@ -181,9 +181,9 @@ const AP_Param::Info AP_Periph_FW::var_info[] = {
 #endif
 
 #ifdef HAL_PERIPH_ENABLE_MAG
-    // @Group: COMPASS_
+    // @Group: COMPASS
     // @Path: ../libraries/AP_Compass/AP_Compass.cpp
-    GOBJECT(compass,         "COMPASS_",     Compass),
+    GOBJECT(compass,         "COMPASS",     Compass),
 #endif
 
 #ifdef HAL_PERIPH_ENABLE_BARO
@@ -298,7 +298,7 @@ const AP_Param::Info AP_Periph_FW::var_info[] = {
     // @Param: ESC_PWM_TYPE
     // @DisplayName: Output PWM type
     // @Description: This selects the output PWM type, allowing for normal PWM continuous output, OneShot, brushed or DShot motor output
-    // @Values: 1:Normal,2:OneShot,3:OneShot125,4:Brushed,5:DShot150,6:DShot300,7:DShot600,8:DShot1200
+    // @Values: 0:Normal,1:OneShot,2:OneShot125,3:Brushed,4:DShot150,5:DShot300,6:DShot600,7:DShot1200
     // @User: Advanced
     // @RebootRequired: True
     GSCALAR(esc_pwm_type, "ESC_PWM_TYPE",     0),
@@ -351,6 +351,12 @@ const AP_Param::Info AP_Periph_FW::var_info[] = {
     // @Group: SCR_
     // @Path: ../libraries/AP_Scripting/AP_Scripting.cpp
     GOBJECT(scripting, "SCR_", AP_Scripting),
+#endif
+
+
+// User parameters
+#ifdef USERHOOK_PARAMS
+#include USERHOOK_PARAMS
 #endif
     AP_VAREND
 };
