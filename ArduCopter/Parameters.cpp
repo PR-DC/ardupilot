@@ -750,6 +750,11 @@ const AP_Param::Info Copter::var_info[] = {
     // @Group:
     // @Path: ../libraries/AP_Vehicle/AP_Vehicle.cpp
     { AP_PARAM_GROUP, "", Parameters::k_param_vehicle, (const void *)&copter, {group_info : AP_Vehicle::var_info} },
+    
+// User parameters
+#ifdef USERHOOK_PARAMS
+#include USERHOOK_PARAMS
+#endif
 
     AP_VAREND
 };
