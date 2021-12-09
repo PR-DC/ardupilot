@@ -376,6 +376,11 @@ public:
         // 254,255: reserved
 
         k_param_vehicle = 257, // vehicle common block of parameters
+        
+// User parameters
+#ifdef USERHOOK_PARAMS_ENUM
+#include USERHOOK_PARAMS_ENUM
+#endif
 
         // the k_param_* space is 9-bits in size
         // 511: reserved
@@ -470,6 +475,11 @@ public:
     // Acro parameters
     AP_Int8                 acro_trainer;
     AP_Float                acro_rp_expo;
+#endif
+
+// User parameters
+#ifdef USERHOOK_PARAMS_VAR
+#include USERHOOK_PARAMS_VAR
 #endif
 
     // Note: keep initializers here in the same order as they are declared

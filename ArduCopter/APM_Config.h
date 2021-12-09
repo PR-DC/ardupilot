@@ -64,3 +64,9 @@
 //#define USERHOOK_SUPERSLOWLOOP userhook_SuperSlowLoop();  // for code to be run at 1hz
 //#define USERHOOK_AUXSWITCH ENABLED                        // for code to handle user aux switches
 //#define USER_PARAMS_ENABLED ENABLED                       // to enable user parameters
+// Put your custome parameters definitions into the CustomParameters.h file (or another file name and then change the #define below).
+//#define USERHOOK_PARAMS "CustomParameters.h"
+// Put your parameters variables into the CustomParametersVar.h file (or another file name and then change the #define below).
+//#define USERHOOK_PARAMS_VAR "CustomParametersVar.h"
+// Put your parameters enum into the CustomParametersEnum.h file (or another file name and then change the #define below).
+//#define USERHOOK_PARAMS_ENUM "CustomParametersEnum.h"
